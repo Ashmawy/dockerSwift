@@ -28,7 +28,6 @@ def get_images():
 		c = conn.cursor()
 		c.execute('SELECT * FROM images')
 		return jsonify(jsonify_get_images(c.fetchall()))
-
-	print(request.args.get('image'))
+		
 if __name__ == "__main__":
     app.run()
