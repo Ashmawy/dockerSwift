@@ -9,7 +9,7 @@ conn = sqlite3.connect('db.db')
 
 @app.route("/")
 def hello():
-	return "executed"
+	return render_template("index.html")
 
 def jsonify_get_images(lst):
 	ret_list = list()
@@ -32,3 +32,4 @@ def get_images():
 		
 if __name__ == "__main__":
     app.run()
+
