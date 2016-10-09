@@ -23,6 +23,12 @@ def images():
 		return post_images(request)
 	elif request.method== 'DELETE':
 		return delete_images(request)
+
+@app.route("/apps",  methods=['POST', 'GET', 'PUT', 'DELETE'])
+def apps():
+	#return list of apps based on image name passed from 2nd screen
+	return "hello"
+
 		
 if __name__ == "__main__":
     app.run()

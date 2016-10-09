@@ -33,7 +33,7 @@
   <body>
     {% for d in data %}
     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-        <a class="img-responsive" href=#>
+        <a class="img-responsive" href='/apps?{{d.image}}'>
             <img src={{d.logo}} width="150" height="150" class="img-rounded">
             <p>{{d.image}}</p>
         </a>
