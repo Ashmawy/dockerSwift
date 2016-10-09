@@ -17,7 +17,7 @@ def jsonify_get_images(lst):
 	print (ret_list)
 	return ret_list
 
-@app.route("/images",  methods=['POST', 'GET', 'PUT'])
+@app.route("/images",  methods=['POST', 'GET', 'PUT', 'DELETE'])
 def images():
 	if request.method == 'GET':
 		return get_images(request)
@@ -25,6 +25,8 @@ def images():
 		return put_images(request)
 	elif request.method == 'POST':
 		return post_images(request)
+	elif request.method== 'DELETE':
+		return delete_images(request)
 
 def get_images(request):
 	if request.args.get('image'):
@@ -46,6 +48,13 @@ def put_images(request):
 def post_images(request):
 	image = request.json['image']
 	return "FROM:"+ image.upper()
+
+def delete_images(request):
+	c = conn.cursor()
+	name = request.json['image']
+	c.execute("DELETE FROM images where name='{name}'".format(name=name))
+	return get_images(request)
+
 	
 
 
