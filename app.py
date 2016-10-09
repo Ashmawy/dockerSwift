@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from flask import request
 from flask import jsonify
+from flask import json
 
 import sqlite3
 app = Flask(__name__)
@@ -27,8 +28,9 @@ def get_images():
 		return jsonify(jsonify_get_images(c.fetchall()))
 	else: 
 		c = conn.cursor()
-		c.execute('SELECT * FROM images')
-		return jsonify(jsonify_get_images(c.fetchall()))
+		c.execute('SELECT * FROM images') 
+		return render_template("images.html", data=jsonify_get_images(c.fetchall()))
+		#return jsonify(jsonify_get_images(c.fetchall()))
 		
 if __name__ == "__main__":
     app.run()
