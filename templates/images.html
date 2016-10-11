@@ -18,7 +18,9 @@
 
 
     <!-- Custom styles for this template -->
-    <link href="/static/cover.css" rel="stylesheet">
+    <link href="/static/css/cover.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/css/style7.css" />
+    <script type="text/javascript" src="/static/js/modernizr.custom.79639.js"></script> 
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -31,13 +33,37 @@
   </head>
 
   <body>
+    <h2>Let's start with the basics!</h2>
+    <p>Pick an image for your container (Ubuntu, Alpine etc.)</p>
     {% for d in data %}
     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-        <a class="img-responsive" href='/apps?{{d.image}}'>
-            <img src={{d.logo}} width="150" height="150" class="img-rounded">
-            <p>{{d.image}}</p>
-        </a>
+        <ul class="ch-grid">
+            <a href='/apps?{{d.image}}'>
+            <li>
+                
+                <div class="ch-item">               
+                    <div class="ch-info">
+                        <div class="ch-info-front" style="background-image: url({{d.logo}}); background-size: 220px 220px; background-repeat:no-repeat;"></div>
+                        <div class="ch-info-back">
+
+                            <h3>{{d.image}}</h3>
+                            <p>The official docker image for {{d.image}}.</p>
+                        </div>  
+                    </div>
+                </div>
+                
+            </li>
+            </a>
+        </ul>
     </div>
+    <!--
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <a class="img-responsive" href='/apps?{{d.image}}'>
+                <img src={{d.logo}} width="150" height="150" class="img-rounded">
+                <p>{{d.image}}</p>
+            </a>
+        </div>
+    -->
     {% endfor %}
   </body>
 </html>
