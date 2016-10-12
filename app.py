@@ -24,6 +24,10 @@ def images():
 	elif request.method== 'DELETE':
 		return delete_images(request)
 
+@app.route("/contact")
+def contact():
+	return render_template("contact.html")
+
 @app.route("/apps",  methods=['POST', 'GET', 'PUT', 'DELETE'])
 def apps():
 	#return list of apps based on image name passed from 2nd screen
