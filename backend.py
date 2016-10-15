@@ -5,8 +5,6 @@ from flask import json
 import sqlite3
 conn = sqlite3.connect('db.db')
 
-
-
 def jsonify_get_images(lst):
 	ret_list = list()
 	for img,logo in lst:
@@ -21,7 +19,6 @@ def get_images(request):
 		return render_template("images.html", data=jsonify_get_images(c.fetchall()))
 	else: 
 		c = conn.cursor()
-
 		c.execute('SELECT * FROM images') 
 		return render_template("images.html", data=jsonify_get_images(c.fetchall()))
 
@@ -43,4 +40,6 @@ def delete_images(request):
 	return get_images(request)
 
 def get_apps(request):
-	return None
+	c = conn.cursor()
+	c.execute('SELECT app_name, link FROM install_cmds where os_name=\'' + request.args.get('os') + '\'')
+	return render_template("images.html", data=jsonify_get_images(c.fetchall()))
