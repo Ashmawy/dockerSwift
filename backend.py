@@ -42,4 +42,4 @@ def delete_images(request):
 def get_apps(request):
 	c = conn.cursor()
 	c.execute('SELECT app_name, link FROM install_cmds where os_name=\'' + request.args.get('os') + '\'')
-	return render_template("images.html", data=jsonify_get_images(c.fetchall()))
+	return render_template("apps.html", data=jsonify_get_images(c.fetchall()))

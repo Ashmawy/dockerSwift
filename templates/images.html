@@ -32,16 +32,19 @@
     <![endif]-->
   </head>
 
-  <body>
+<body>
 
-    <a href="/" class="btn btn-lg btn-default">Home</a><h2>Let's start with the basics!</h2>
-    <p>Pick an image for your container (Ubuntu, Alpine etc.)</p>
+
+    <div class="inner cover">
+    <p class="lead">Pick an image for your container (Ubuntu, Alpine etc.)</p>
+    <a href="/" class="btn btn-lg btn-default">Home</a>
+    </div>
     
     {% for d in data %}
     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
 
         <ul class="ch-grid">
-            <a href='/apps?{{d.image}}'>
+            <a href='/apps?os={{d.image}}'>
             <li>
                 
                 <div class="ch-item">               
@@ -68,5 +71,9 @@
         </div>
     -->
     {% endfor %}
-  </body>
+    </div>
+    
+
+
+</body>
 </html>
