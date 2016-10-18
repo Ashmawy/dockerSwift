@@ -31,6 +31,8 @@ def contact():
 @app.route("/apps",  methods=['POST', 'GET', 'PUT', 'DELETE'])
 def apps():
 	#return list of apps based on image name passed from 2nd screen
+	if request.method == 'GET':
+		return get_apps(request)
 	return "hello"
 
 		
