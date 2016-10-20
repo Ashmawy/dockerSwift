@@ -2,6 +2,7 @@ from flask import Flask, render_template
 from flask import request
 from flask import jsonify
 from flask import json
+from dockerfile import Dockerfile
 import sqlite3
 conn = sqlite3.connect('db.db')
 
@@ -43,3 +44,17 @@ def get_apps(request):
 	c = conn.cursor()
 	c.execute('SELECT app_name, link FROM install_cmds where os_name=\'' + request.args.get('os') + '\'')
 	return render_template("apps.html", data=jsonify_get_images(c.fetchall()))
+
+def post_apps(request):
+	apps = request.json['apps']
+	os_name = request.json['os']
+	d = Dockerfile(os_name)
+	c = conn.cursor()
+
+	for app in apps:
+		c.execute('SELECT cmd FROM install_cmds where os_name=\'' + os_name + '\' and app_name=\'' + app + '\'')
+		d.add_run_command(c.fetchone()[0])
+
+	return jsonify({'dockerfile' : d.create_dockerfile()})
+
+

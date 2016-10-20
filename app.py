@@ -33,6 +33,8 @@ def apps():
 	#return list of apps based on image name passed from 2nd screen
 	if request.method == 'GET':
 		return get_apps(request)
+	if request.method == 'POST':
+		return post_apps(request)
 	return "hello"
 
 		
