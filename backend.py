@@ -45,9 +45,10 @@ def get_apps(request):
 	c.execute('SELECT app_name, link FROM install_cmds where os_name=\'' + request.args.get('os') + '\'')
 	return render_template("apps.html", data=jsonify_get_images(c.fetchall()))
 
-def post_apps(request):
-	apps = request.json['apps']
-	os_name = request.json['os']
+def post_apps(os_name, apps):
+	
+	apps = apps
+	os_name = os_name
 	d = Dockerfile(os_name)
 	c = conn.cursor()
 

@@ -34,7 +34,7 @@ def apps():
 	if request.method == 'GET':
 		return get_apps(request)
 	if request.method == 'POST':
-		return post_apps(request)
+		return post_apps(request.args.get("os"), request.form.getlist('checked_app'))
 	return "hello"
 
 		
