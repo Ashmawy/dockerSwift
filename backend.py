@@ -58,4 +58,17 @@ def post_apps(os_name, apps):
 
 	return jsonify({'dockerfile' : d.create_dockerfile()})
 
+def post_commands(request):
+
+	d = Dockerfile('', request.json['initial'])
+
+	if request.json['type'] == 'COPY':
+		d.add_file(request.json['instruction'])
+	elif request.json['type'] == 'RUN':
+		d.add_run_command(request.json['instruction'])
+	elif request.json['type'] == 'EXPOSE':
+		d.add_expose_port(request.json['instruction'])
+
+	return jsonify({'dockerfile' : d.create_dockerfile()})
+
 

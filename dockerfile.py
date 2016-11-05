@@ -1,11 +1,12 @@
 class Dockerfile:
-	def __init__(self, baseimage):
+	def __init__(self, baseimage, init=''):
 		self.baseimage = baseimage
 		self.copy_files = []
 		self.run_commands = []
 		self.expose_ports = []
 		self.cmd = ""
 		self.entrypoint = ""
+		self.init = init
 
 	def add_file(self, f):
 		self.copy_files.append(f)
@@ -28,7 +29,12 @@ class Dockerfile:
 		return dockerfile
 
 	def create_dockerfile(self):
-		dockerfile = "FROM " + self.baseimage + "\n"
+
+		if self.init:
+			dockerfile = self.init
+		else:
+			dockerfile = "FROM " + self.baseimage + "\n"
+		
 		dockerfile = self.add_to_dockerfile(dockerfile, "COPY", self.copy_files)
 		dockerfile = self.add_to_dockerfile(dockerfile, "RUN", self.run_commands)
 		dockerfile = self.add_to_dockerfile(dockerfile, "EXPOSE", self.expose_ports)
