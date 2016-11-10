@@ -37,6 +37,12 @@ def apps():
 		return post_apps(request.args.get("os"), request.form.getlist('checked_app'))
 	return "hello"
 
+@app.route("/commands",  methods=['POST', 'GET', 'PUT', 'DELETE'])
+def commands():
+	if request.method == 'GET':
+		return jsonify(['RUN', 'COPY', 'EXPOSE'])
+	if request.method == 'POST':
+		return post_commands(request)
 		
 if __name__ == "__main__":
     app.run()
