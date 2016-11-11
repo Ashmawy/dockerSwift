@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
+    <title>dockerSwift</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    </style>
+    <link href="/static/css/cover.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <style type="text/css">
+    .row{
+    margin-top:40px;
+    padding: 0 10px;
+}
+
+.clickable{
+    cursor: pointer;   
+}
+
+.panel-heading span {
+    margin-top: -20px;
+    font-size: 15px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+<form action="/commands" method="post">
+<input type="hidden" name="initial" value="{{dockerfile.dockerfile}}">
+  <div class="row">
+    <h2>Pick your commands!</h2>
+    </div>
+    {% for d in data %}
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{d}}</h3>
+                    <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body panel-collapse">
+                <input type="text" class="form-control" name={{d}}>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+            </div>
+        </div>
+  </div>
+
+</div>
+<div class="cover-container">
+<div class="mastfoot">
+            <div class="inner">
+            <button type="submit" name="Next" class="btn btn-lg btn-default">Next</button>
+            <h4>Your perfect dockerfile is a few steps away!</h4>
+            <div class="progress">
+  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="70"
+  aria-valuemin="0" aria-valuemax="100" style="width:70%">
+    70% Complete
+  </div>
+</div>
+</div>
+</div>
+</form>
+</div>
+<script type="text/javascript">
+$(document).on('click', '.panel-heading span.clickable', function(e){
+    var $this = $(this);
+    if(!$this.hasClass('panel-collapse')) {
+        $this.parents('.panel').find('.panel-body').slideUp();
+        $this.addClass('panel-collapse');
+        $this.find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+    } else {
+        $this.parents('.panel').find('.panel-body').slideDown();
+        $this.removeClass('panel-collapse');
+        $this.find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+    }
+})
+</script>
+
+</body>
+</html>

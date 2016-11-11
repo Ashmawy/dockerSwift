@@ -13,6 +13,7 @@ app = Flask(__name__)
 def home():
 	return render_template("index.html")
 
+
 @app.route("/images",  methods=['POST', 'GET', 'PUT', 'DELETE'])
 def images():
 	if request.method == 'GET':
@@ -35,14 +36,18 @@ def apps():
 		return get_apps(request)
 	if request.method == 'POST':
 		return post_apps(request.args.get("os"), request.form.getlist('checked_app'))
-	return "hello"
 
 @app.route("/commands",  methods=['POST', 'GET', 'PUT', 'DELETE'])
 def commands():
-	if request.method == 'GET':
-		return jsonify(['RUN', 'COPY', 'EXPOSE'])
+	final_dockerfile = {}
 	if request.method == 'POST':
-		return post_commands(request)
+		for i in request.form:
+			if request.form[i] != '':
+				final_dockerfile[i] = request.form[i]
+
+
+	return post_commands(final_dockerfile)
+
 		
 if __name__ == "__main__":
     app.run()

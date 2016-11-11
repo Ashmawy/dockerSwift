@@ -10,7 +10,6 @@ def jsonify_get_images(lst):
 	ret_list = list()
 	for img,logo in lst:
 		ret_list.append({"image": img, "logo": logo})
-	print (ret_list)
 	return ret_list
 
 def get_images(request):
@@ -56,19 +55,35 @@ def post_apps(os_name, apps):
 		c.execute('SELECT cmd FROM install_cmds where os_name=\'' + os_name + '\' and app_name=\'' + app + '\'')
 		d.add_run_command(c.fetchone()[0])
 
-	return jsonify({'dockerfile' : d.create_dockerfile()})
+	dockerfileJSON = jsonify({'dockerfile' : d.create_dockerfile()})
 
-def post_commands(request):
+	return render_template("commands.html", data=['RUN', 'COPY', 'EXPOSE', 'ENV'], dockerfile=json.loads(dockerfileJSON.get_data()))
 
-	d = Dockerfile('', request.json['initial'])
+def post_commands(final_dockerfile):
 
-	if request.json['type'] == 'COPY':
-		d.add_file(request.json['instruction'])
-	elif request.json['type'] == 'RUN':
-		d.add_run_command(request.json['instruction'])
-	elif request.json['type'] == 'EXPOSE':
-		d.add_expose_port(request.json['instruction'])
+	d = Dockerfile('', final_dockerfile['initial'])
 
-	return jsonify({'dockerfile' : d.create_dockerfile()})
+	for key, value in final_dockerfile.items():
+		if key == 'COPY':
+			d.add_file(value)
+		elif key == 'RUN':
+			d.add_run_command(value)
+		elif key == 'EXPOSE':
+			d.add_expose_port(value)
+		elif key == 'ENV':
+			d.add_env(value)
+
+	# if final_dockerfile['COPY']:
+	# 	d.add_file(final_dockerfile['COPY'])
+	# if final_dockerfile['RUN']:
+	# 	d.add_run_command(final_dockerfile['RUN'])
+	# if final_dockerfile['EXPOSE']:
+	# 	d.add_expose_port(final_dockerfile['EXPOSE'])
+	# if final_dockerfile['ENV']:
+	# 	d.add_env(final_dockerfile['ENV'])
+
+	dockerfile_final = jsonify({'dockerfile' : d.create_dockerfile()})
+
+	return render_template("dockerfile.html", dockerfile=json.loads(dockerfile_final.get_data()))
 
 

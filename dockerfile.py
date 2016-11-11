@@ -4,6 +4,7 @@ class Dockerfile:
 		self.copy_files = []
 		self.run_commands = []
 		self.expose_ports = []
+		self.env = []
 		self.cmd = ""
 		self.entrypoint = ""
 		self.init = init
@@ -16,6 +17,9 @@ class Dockerfile:
 
 	def add_expose_port(self, p):
 		self.expose_ports.append(p)
+
+	def add_env(self, env):
+		self.env.append(env)
 
 	def set_cmd(self,cmd):
 		self.cmd=cmd
@@ -38,6 +42,7 @@ class Dockerfile:
 		dockerfile = self.add_to_dockerfile(dockerfile, "COPY", self.copy_files)
 		dockerfile = self.add_to_dockerfile(dockerfile, "RUN", self.run_commands)
 		dockerfile = self.add_to_dockerfile(dockerfile, "EXPOSE", self.expose_ports)
+		dockerfile = self.add_to_dockerfile(dockerfile, "ENV", self.env)
 
 		if self.entrypoint:
 			dockerfile = self.add_to_dockerfile(dockerfile, "ENTRYPOINT", [self.entrypoint])
