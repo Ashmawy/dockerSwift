@@ -29,7 +29,7 @@ class Dockerfile:
 
 	def add_to_dockerfile(self,dockerfile, cmd, lst):
 		for l in lst:
-			dockerfile+=cmd + " " + l + "\n"
+			dockerfile+=cmd + " " + l + "<br>"
 		return dockerfile
 
 	def create_dockerfile(self):
@@ -37,7 +37,7 @@ class Dockerfile:
 		if self.init:
 			dockerfile = self.init
 		else:
-			dockerfile = "FROM " + self.baseimage + "\n"
+			dockerfile = "FROM " + self.baseimage + "<br>"
 		
 		dockerfile = self.add_to_dockerfile(dockerfile, "COPY", self.copy_files)
 		dockerfile = self.add_to_dockerfile(dockerfile, "RUN", self.run_commands)

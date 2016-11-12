@@ -57,7 +57,7 @@ def post_apps(os_name, apps):
 
 	dockerfileJSON = jsonify({'dockerfile' : d.create_dockerfile()})
 
-	return render_template("commands.html", data=['RUN', 'COPY', 'EXPOSE', 'ENV'], dockerfile=json.loads(dockerfileJSON.get_data()))
+	return render_template("commands.html", data=['RUN', 'COPY', 'EXPOSE', 'ENV', 'CMD'], dockerfile=json.loads(dockerfileJSON.get_data()))
 
 def post_commands(final_dockerfile):
 
